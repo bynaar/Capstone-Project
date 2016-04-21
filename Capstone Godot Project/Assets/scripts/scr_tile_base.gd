@@ -36,9 +36,9 @@ func _ready():
 func updateTile():
 	if (occupied):
 		hungerUpdate()
-		#if (canRedistributeFood()):
-		#	redistributeFood("excess")
-		#	pass
+#		if (canRedistributeFood()):
+#			redistributeFood("excess")
+#			pass
 		if (canColonize()):
 			colonizeTargetTile(chooseTileToColonize(getListOfColonizableTiles()))
 #		print("Tile: ", x, " ", y) 
@@ -119,6 +119,9 @@ func updateBorderingTiles():
 	if (y - 1 >= 0 and x + locationModifier <= mapLength - 1):
 		borderingTiles.append(tiles[y-1][x + locationModifier])
 
+func getListOfExploredTiles():
+	pass
+
 func getListOfColonizableTiles():
 	var colonizableTiles = []
 	for tile in borderingTiles:
@@ -178,6 +181,9 @@ func colonizeViaHunger(_hungerMeter):
 ##########################################################################################
 #EXPLORATION METHODS
 #IMPLEMENT LATER
+
+func exploreSurrroundingTile():
+	pass
 
 func canExplore():
 	updateBorderingTiles()

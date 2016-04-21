@@ -17,8 +17,13 @@ func generateGeographyTile(_tile, _mapHeight): #this applies a forest geography 
 		tempGeography.setGeography("Forest")
 	else:
 		tempGeography.setGeography("Grassland")
-	if ((_tile.y > ((_mapHeight * 7) / 8) or _tile.y < (_mapHeight / 8))):
+	if (canBeTundra(randomNumber) and (_tile.y > ((_mapHeight * 7) / 8) or _tile.y < (_mapHeight / 8))):
 		randomNumber = rand_range(0,2)
-		if randomNumber < 1:
+		if randomNumber < 1.7:
 			 tempGeography.setGeography("Tundra")
 	_tile.applyGeography(tempGeography)
+
+func canBeTundra(randomNumber):
+	if randomNumber < 3:
+		return false
+	else: return true

@@ -48,7 +48,7 @@ script/script = ExtResource( 3 )
 
 [node name="Info" type="Sprite" parent="UI"]
 
-transform/pos = Vector2( 10, 6.17214 )
+transform/pos = Vector2( 11.2337, 3.70467 )
 texture = ExtResource( 4 )
 centered = false
 
