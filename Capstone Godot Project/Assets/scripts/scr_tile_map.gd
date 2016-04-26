@@ -36,10 +36,18 @@ func generateTileMap():
 			tiles[a][b].x = b
 			tiles[a][b].y = a
 
+func updateTileWaterFood():
+	for row in tiles:
+		for tile in row:
+			tile.updateTile()
+
 func updateAllTiles():
 	for row in tiles:
 		for tile in row:
 			tile.updateTile()
+	for row in tiles:
+		for tile in row:
+			tile.architecturalReevaluation()
 
 func getNumberOfColonizedTiles():
 	var forests = 0
@@ -57,8 +65,23 @@ func getNumberOfColonizedTiles():
 					deserts += 1
 				if tile.geographyOfTile == "Tundra":
 					tundras += 1
+	var villages = 0
+	var towns = 0
+	var cities = 0
+	var citadels = 0
+	for row in tiles:
+		for tile in row:
+			if tile.isOccupied():
+				if tile.cityType == "Village":
+					villages += 1
+				if tile.cityType == "Town":
+					towns += 1
+				if tile.cityType == "City":
+					cities += 1
+				if tile.cityType == "Citadel":
+					citadels += 1
 	var total = forests + grasslands + deserts + tundras
-	return [total, forests, grasslands, deserts, tundras]
+	return [total, forests, grasslands, deserts, tundras, villages, towns, cities, citadels]
 
 func generateGeographyMap():
 	randomize()
@@ -68,4 +91,4 @@ func generateGeographyMap():
 			mapGenerator.generateGeographyTile(tile, mapHeight)
 
 func startingColonizedTile():
-	tiles[mapHeight/2][mapLength/2].colonize()
+	tiles[mapHeight/2][mapLength/2].colonize(false, 0)

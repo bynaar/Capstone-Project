@@ -9,9 +9,9 @@ func _ready():
 func generateGeographyTile(_tile, _mapHeight): #this applies a forest geography to any tile it's called on
 	var tempGeography = geographyXML.instance()
 	var randomNumber = rand_range(0,4)
-	if randomNumber < 1.5:
+	if randomNumber < 1:
 		tempGeography.setGeography("Water")
-	elif randomNumber < 2:
+	elif randomNumber < 1.5:
 		tempGeography.setGeography("Desert")
 	elif randomNumber < 3:
 		tempGeography.setGeography("Forest")

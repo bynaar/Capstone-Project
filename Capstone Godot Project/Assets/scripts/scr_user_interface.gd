@@ -32,6 +32,7 @@ func updateColonizedText(_list):
 	colonizedText.clear()
 	colonizedText.add_text("Total: " + str(_list[0]))
 	colonizedText.newline()
+	colonizedText.newline()
 	colonizedText.add_text("Forest: " + str(_list[1]))
 	colonizedText.newline()
 	colonizedText.add_text("Grassland: " + str(_list[2]))
@@ -39,6 +40,16 @@ func updateColonizedText(_list):
 	colonizedText.add_text("Desert: " + str(_list[3]))
 	colonizedText.newline()
 	colonizedText.add_text("Tundra: " + str(_list[4]))
+	colonizedText.newline()
+	colonizedText.newline()
+	colonizedText.add_text("Villages: " + str(_list[5]))
+	colonizedText.newline()
+	colonizedText.add_text("Towns: " + str(_list[6]))
+	colonizedText.newline()
+	colonizedText.add_text("Cities: " + str(_list[7]))
+	colonizedText.newline()
+	colonizedText.add_text("Citadels: " + str(_list[8]))
+	
 
 func _on_Time_Step_Button_item_selected( ID ):
 	if ID == 0:
