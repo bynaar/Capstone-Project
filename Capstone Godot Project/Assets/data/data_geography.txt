@@ -1,5 +1,5 @@
 Forest,3,3,res://Assets/sprites/spr_tile_forest.png
 Water,0,9,res://Assets/sprites/spr_tile_water.png
-Desert,1,4,res://Assets/sprites/spr_tile_desert.png
+Desert,0,2,res://Assets/sprites/spr_tile_desert.png
 Grassland,2,1,res://Assets/sprites/spr_tile_grassland.png
 Tundra,3,4,res://Assets/sprites/spr_tile_tundra.png

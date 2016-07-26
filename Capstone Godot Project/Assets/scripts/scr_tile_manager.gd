@@ -18,8 +18,8 @@ var timer
 
 func _ready():
 	print ("start")
-	mapHeight = 40
-	mapLength = 40
+	mapHeight = 100
+	mapLength = 100
 	tileMap = tileMapXML.instance()
 	add_child(tileMap)
 	generateTileMap()

@@ -2,7 +2,8 @@
 extends Sprite
 
 var geographyOfTile
-var food
+var baseFood = 0
+var food = 0
 var difficulty
 
 var colonizeCounterText
@@ -13,9 +14,13 @@ var y
 var mapHeight
 var mapLength
 
+const cityLevel = {"village":0,"town":1,"city":2,"citadel":3}
+
 var occupied = false
-var cityType = "Village"
+var cityType = cityLevel.village
 var cityTypeImage
+
+
 var townOverlay = preload("res://Assets/sprites/spr_tile_town_overlay.png")
 var cityOverlay = preload("res://Assets/sprites/spr_tile_city_overlay.png")
 var citadelOverlay = preload("res://Assets/sprites/spr_tile_citadel_overlay.png")
@@ -38,94 +43,10 @@ var textureInahbited_4 = preload("res://Assets/sprites/spr_tile_inhabited_countd
 var textureInahbited_5 = preload("res://Assets/sprites/spr_tile_inhabited_countdown_5.png")
 var textureInahbited_6 = preload("res://Assets/sprites/spr_tile_inhabited_countdown_6.png")
 
-
-
 var tileMap
 
 func _ready():
 	cityTypeImage = self.get_node("Type Overlay Image")
-
-func updateTile():
-	if (occupied):
-		updateBorderingTiles()
-		hungerUpdate()
-#		if (canRedistributeFood()):
-#			redistributeFood("excess")
-#			pass
-		if (canColonize()):
-			colonizeTargetTile(chooseTileToColonize(getListOfColonizableTiles()), "Population")
-#		print("Tile: ", x, " ", y) 
-#		print("Hunger: ", hungerMeter)
-#		print("Colonize: ", colonizeCounter)
-
-func applyGeography(_geography):
-	geographyOfTile = _geography.type
-	food = _geography.food
-	difficulty = _geography.difficulty
-	self.set_texture(load(_geography.tileImage))
-
-func isOccupied():
-	return occupied
-
-func getCityType():
-	return cityType
-
-func updateFood():
-	for tile in borderingTiles:
-		if tile.geographyOfTile.type == "Water":
-			food += 1
-
-##########################################################################################
-#HUNGER
-
-func hungerUpdate():
-	if (hungerMeter == 2):
-		hungerMovement()
-	if (hungerMeter >= 4):
-		removeOccupiedStatus()
-		pass
-	elif (food < difficulty):
-	#	if (len(excessFood) > 0):
-	#		redistributeFood("hunger")
-		hungerMeter += 1
-	elif (hungerMeter > 0):
-		hungerMeter -= 1
-
-##########################################################################################
-#TILE MOVEMENT DUE TO HUNGER
-
-func hungerMovement():
-	if canMoveToNearbyTile():
-		colonizeTargetTile(chooseTileToColonize(getListOfColonizableTiles()), "Hunger")
-		removeOccupiedStatus()
-
-func canMoveToNearbyTile():
-	if getListOfColonizableTiles().size() > 0:
-		return true
-	else: 
-		return false
-
-##########################################################################################
-#COLONIZATION METHODS
-
-func colonize(_isHungry, _hunger):
-	occupied = true
-	loadInhabitedStatus()
-	if _isHungry:
-		if (food - difficulty > 0):
-			hungerMeter = 0
-		else:
-			hungerMeter = _hunger + 1
-
-func canColonize():
-	if (hungerMeter <= 0):
-		if (colonizeCounter < 12):
-			colonizeCounter += 1 + (food - difficulty)
-			updateInhabitedImage()
-			return false
-		if (colonizeCounter >= 12):
-			return true
-	return false
 
 func updateBorderingTiles():
 	var tiles = tileMap.tiles
@@ -144,6 +65,39 @@ func updateBorderingTiles():
 		borderingTiles.append(tiles[y-1][x-1 + locationModifier])
 	if (y - 1 >= 0 and x + locationModifier <= mapLength - 1):
 		borderingTiles.append(tiles[y-1][x + locationModifier])
+
+func applyGeography(_geography):
+	geographyOfTile = _geography.type
+	baseFood = _geography.food
+	difficulty = _geography.difficulty
+	self.set_texture(load(_geography.tileImage))
+
+##########################################################################################
+#HUNGER
+##########################################################################################
+#TILE MOVEMENT DUE TO HUNGER
+
+##########################################################################################
+#COLONIZATION METHODS
+
+func colonize(_isHungry, _hunger):
+	occupied = true
+	loadInhabitedStatus()
+	if _isHungry:
+		if (food - difficulty > 0):
+			hungerMeter = 0
+		else:
+			hungerMeter = _hunger + 1
+
+func canColonize():
+	if (hungerMeter <= 0):
+		if (colonizeCounter < 12):
+			colonizeCounter += 1 + cityType
+			updateInhabitedImage()
+			return false
+		if (colonizeCounter >= 12):
+			return true
+	return false
 
 func getListOfExploredTiles():
 	pass
@@ -188,7 +142,6 @@ func colonizeTargetTile(_tile, _type):
 	elif _type == "Explore":
 		pass
 
-
 ##########################################################################################
 #EXPLORATION METHODS
 #IMPLEMENT LATER
@@ -218,25 +171,37 @@ func updateListOfNearbyOccupiedTiles():
 ##########################################################################################
 #CIVILIZATION TOWN/CITY SYSTEM
 
+#func architecturalReevaluation():
+#	if isOccupied():
+#		var occupiedSurroundingVillages = 0
+#		var occupiedSurroundingTowns = 0
+#		var occupiedSurroundingCities = 0
+#		for tile in borderingTiles:
+#			if tile.isOccupied():
+#				occupiedSurroundingVillages += 1
+#				if tile.getCityType() == cityLevel.town or tile.getCityType() == cityLevel.city or tile.getCityType() == cityLevel.citadel:
+#					occupiedSurroundingTowns += 1
+#				if tile.getCityType() == cityLevel.city or tile.getCityType() == cityLevel.citadel: 
+#					occupiedSurroundingCities += 1
+#		if occupiedSurroundingCities >= 6:
+#			self.cityType = cityLevel.citadel
+#		elif occupiedSurroundingTowns >= 4:
+#			self.cityType = cityLevel.city
+#		elif occupiedSurroundingVillages >= 4:
+#			self.cityType = cityLevel.town
+#		updateCityTypeImage()
+
 func architecturalReevaluation():
 	if isOccupied():
-		var occupiedSurroundingVillages = 0
-		var occupiedSurroundingTowns = 0
-		var occupiedSurroundingCities = 0
+		var occupiedHigherLevelTile = 0
 		for tile in borderingTiles:
 			if tile.isOccupied():
-				occupiedSurroundingVillages += 1
-				if tile.getCityType() == "Town" or tile.getCityType() == "City" or tile.getCityType() == "Citadel":
-					occupiedSurroundingTowns += 1
-				if tile.getCityType() == "City" or tile.getCityType() == "Citadel": 
-					occupiedSurroundingCities += 1
-		if occupiedSurroundingCities >= 6:
-			self.cityType = "Citadel"
-		elif occupiedSurroundingTowns >= 4:
-			self.cityType = "City"
-		elif occupiedSurroundingVillages >= 4:
-			self.cityType = "Town"
+				if tile.cityType >= self.cityType:
+					occupiedHigherLevelTile += 1
+		if (occupiedHigherLevelTile >= 4 and cityType < cityLevel.citadel and food - difficulty - 1 >= 0):
+			self.cityType += 1
 		updateCityTypeImage()
+		updateTotalFood()
 
 ##########################################################################################
 #OCCUPATION STATUS REMOVAL
@@ -270,13 +235,14 @@ func updateInhabitedImage():
 func loadInhabitedStatus():
 	inhabitedSprite = inhabitedSpriteXML.instance()
 	self.add_child(inhabitedSprite)
+	cityType = cityLevel.village
 
 func updateCityTypeImage():
-	if cityType == "Citadel":
+	if cityType == cityLevel.citadel:
 		self.cityTypeImage.set_texture(citadelOverlay)
-	elif cityType == "City":
+	elif cityType == cityLevel.city:
 		self.cityTypeImage.set_texture(cityOverlay)
-	elif cityType == "Town":
+	elif cityType == cityLevel.town:
 		self.cityTypeImage.set_texture(townOverlay)
 
 ###########################################################################################
