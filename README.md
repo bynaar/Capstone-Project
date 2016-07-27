@@ -7,6 +7,10 @@ When the simulator starts, it will generate a large map of tiles with a randomly
 
 Populations over time will begin to build larger cities based on the number of surrounding tiles of the same or lower city type. There are four city types in this simulation: Villages, Towns, Cities, and Citadels. Villages surrounded by four or more city types, will upgrade to a Town, asusming there is enough food on the tile to support a Town. If a forest tile supplies 3 food and has 3 difficulty, it cannot upgrade, because the Town living on the space, already consumes all the available food on the space.
 
+<<<<<<< HEAD
 If a Town, is surrounded by four or more Towns or city tiles of a superior type, it will upgrade to a City. And the same is for Citadels. A city surrounded by four cities or citadels will become a Citadel, though it will require 3 more food than difficulty. 
+=======
+If a Town, is surrounded by four or more Towns or city tiles of a superior type, it will upgrade to a City. And the same is for Citadels. A city surrounded by four cities or citadels will become a Citadel, though it will require 3 more food than difficulty.
+>>>>>>> 948e24ff3b06a1e06123c0cfe001093fff0c34c4
 
 More details are in the REVIE CAPSTONE FINAL PAPER pdf file in the project.
