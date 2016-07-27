@@ -3,7 +3,7 @@ extends Node2D
 
 var food
 var difficulty
-var type = ""
+var type
 var tileImage
 var resourceModifierImage
 var geographyModifierImage
@@ -23,7 +23,7 @@ func setGeography(geographyType):
 			var geoLine = geographyFile.get_line()
 			geoLine = geoLine.split(",")
 			if geoLine[0] == geographyType:
-				setType(str(geoLine[0]))
+				setType(geoLine[0])
 				setFood(int(geoLine[1]))
 				setDifficulty(int(geoLine[2]))
 				setTileImage(geoLine[3])
@@ -43,3 +43,9 @@ func setDifficulty(_difficulty):
 
 func setTileImage(_tileImage):
 	tileImage = _tileImage
+
+func setResourceImage(_resImage):
+	pass
+
+func setGeographyImage(_geoImage):
+	pass

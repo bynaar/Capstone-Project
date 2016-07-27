@@ -10,8 +10,6 @@ var tileManager
 var tileXML = preload("res://Assets/objects/obj_tile_base.xml")
 var mapGeneratorXML = preload("res://Assets/objects/obj_map_generator.xml")
 
-const cityLevel = {"village":0,"town":1,"city":2,"citadel":3}
-
 func _ready():
 	tiles = []
 
@@ -20,7 +18,6 @@ func createTileMap(_height, _length):
 	mapLength = _length
 	generateTileMap()
 	generateGeographyMap()
-	updateTileWaterFood()
 	print("tiles generated")
 	startingColonizedTile()
 
@@ -39,10 +36,10 @@ func generateTileMap():
 			tiles[a][b].x = b
 			tiles[a][b].y = a
 
-func updateTileWaterFood(): #If a tile is bordering water, it will increase its base food value by 1 for each water tile bordering it
+func updateTileWaterFood():
 	for row in tiles:
 		for tile in row:
-			tile.updateBaseFood()
+			tile.updateTile()
 
 func updateAllTiles():
 	for row in tiles:
@@ -75,13 +72,13 @@ func getNumberOfColonizedTiles():
 	for row in tiles:
 		for tile in row:
 			if tile.isOccupied():
-				if tile.cityType == cityLevel.village:
+				if tile.cityType == "Village":
 					villages += 1
-				if tile.cityType == cityLevel.town:
+				if tile.cityType == "Town":
 					towns += 1
-				if tile.cityType == cityLevel.city:
+				if tile.cityType == "City":
 					cities += 1
-				if tile.cityType == cityLevel.citadel:
+				if tile.cityType == "Citadel":
 					citadels += 1
 	var total = forests + grasslands + deserts + tundras
 	return [total, forests, grasslands, deserts, tundras, villages, towns, cities, citadels]
@@ -92,7 +89,6 @@ func generateGeographyMap():
 	for row in tiles:
 		for tile in row:
 			mapGenerator.generateGeographyTile(tile, mapHeight)
-			tile.updateTotalFood()
 
 func startingColonizedTile():
 	tiles[mapHeight/2][mapLength/2].colonize(false, 0)

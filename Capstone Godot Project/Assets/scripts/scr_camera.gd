@@ -31,10 +31,10 @@ func _input(event):
 	if event.type == InputEvent.MOUSE_BUTTON:
 		if event.button_index == BUTTON_WHEEL_DOWN:
 			var zoom = Vector2(self.get_zoom().x + .1, self.get_zoom().y + .1)
-			if zoom.x > 10:
-				zoom.x = 10
-			if zoom.y > 10:
-				zoom.y = 10
+#			if zoom.x > 10:
+#				zoom.x = 10
+#			if zoom.y > 10:
+#				zoom.y = 10
 			self.set_zoom(Vector2(zoom.x, zoom.y))
 		if event.button_index == BUTTON_WHEEL_UP:
 			var zoom = Vector2(self.get_zoom().x - .1, self.get_zoom().y - .1)
