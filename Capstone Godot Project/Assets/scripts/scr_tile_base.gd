@@ -58,11 +58,13 @@ func updateTile():
 #		print("Hunger: ", hungerMeter)
 #		print("Colonize: ", colonizeCounter)
 
+
 func applyGeography(_geography):
 	geographyOfTile = _geography.type
 	food = _geography.food
 	difficulty = _geography.difficulty
-	self.set_texture(load(_geography.tileImage))
+	var image = load(_geography.tileImage)
+	self.set_texture(image)
 
 func isOccupied():
 	return occupied

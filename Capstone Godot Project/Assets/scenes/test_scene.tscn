@@ -54,43 +54,45 @@ centered = false
 
 [node name="Colonized Tile Numbers" type="RichTextLabel" parent="UI/Info"]
 
-margin/left = 4.0
-margin/top = 39.0
-margin/right = 97.0
-margin/bottom = 207.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 4.0
+margin/top = 39.0
+margin/right = 97.0
+margin/bottom = 207.0
 bbcode/enabled = false
 bbcode/bbcode = ""
 visible_characters = -1
 
 [node name="Total Time" type="RichTextLabel" parent="UI/Info"]
 
-margin/left = 4.0
-margin/top = 3.0
-margin/right = 97.0
-margin/bottom = 25.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 4.0
+margin/top = 3.0
+margin/right = 97.0
+margin/bottom = 25.0
 bbcode/enabled = false
 bbcode/bbcode = ""
 visible_characters = -1
 
 [node name="Time Step Button" type="OptionButton" parent="UI"]
 
-margin/left = 15.0
-margin/top = 23.0
-margin/right = 58.0
-margin/bottom = 42.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 15.0
+margin/top = 23.0
+margin/right = 58.0
+margin/bottom = 42.0
 toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
 flat = false
 align = 0
 selected = -1

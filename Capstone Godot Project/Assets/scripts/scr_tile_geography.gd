@@ -26,7 +26,7 @@ func setGeography(geographyType):
 				setType(geoLine[0])
 				setFood(int(geoLine[1]))
 				setDifficulty(int(geoLine[2]))
-				setTileImage(geoLine[3])
+				setTileImage(str(geoLine[3]))
 				break
 
 func applyModifiers():
